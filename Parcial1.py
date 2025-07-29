@@ -31,6 +31,18 @@ def registrar_empleados(empleados):
             print("Ingrese un número válido para la antigüedad.")
             continue
 
+        print("\n--- Información de contacto ---")
+        while True:
+            try:
+                telefono = int(input("Ingrese el número de teléfono (8 dígitos): "))
+            except ValueError:
+                print("Ingrese un numero de telefono valido")
+                continue
+        correo = input("Ingrese correo electrónico: ")
+        contacto = {
+            "telefono": telefono,
+            "correo": correo
+        }
         print("\n--- Evaluación del empleado ---")
         puntualidad = pedir_puntaje("Puntualidad (0-10): ")
         equipo = pedir_puntaje("Trabajo en equipo (0-10): ")
@@ -46,24 +58,6 @@ def registrar_empleados(empleados):
             "observaciones": observaciones,
             "promedio": promedio,
             "estado": estado
-        }
-
-        print("\n--- Información de contacto ---")
-        while True:
-            try:
-                telefono = int(input("Ingrese el número de teléfono (8 dígitos): "))
-                if len(telefono) == 8:
-                    break
-                else:
-                    print("Ingrese un número válido de 8 dígitos.")
-            except ValueError:
-                print("Ingrese un numero de telefono valido")
-                continue
-
-        correo = input("Ingrese correo electrónico: ")
-        contacto = {
-            "telefono": telefono,
-            "correo": correo
         }
 
         empleados[codigo_empleado] = {
