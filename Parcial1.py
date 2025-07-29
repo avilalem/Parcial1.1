@@ -1,33 +1,118 @@
+def pedir_puntaje(mensaje):
+    while True:
+        try:
+            nota = float(input(mensaje))
+            if 0 <= nota <= 10:
+                return nota
+            else:
+                print("Ingrese un número entre 0 y 10.")
+        except ValueError:
+            print("Ingrese un número válido.")
 
-def registrar_empleados (empleados):
+def registrar_empleados(empleados):
     try:
-        cantidad=int(input("Cuantos estudiantes desea registrar?:"))
+        cantidad = int(input("¿Cuántos empleados desea registrar?: "))
     except ValueError:
-        print("Ingrese un numero valido")
+        print("Ingrese un número válido.")
         return
 
     for _ in range(cantidad):
-        codigo_empleado=input("Ingrese el codigo de empleado:")
+        codigo_empleado = input("\nIngrese el código del empleado: ")
         if codigo_empleado in empleados:
-            print("El codigo de empleado ya existe")
+            print("El código de empleado ya existe.")
             continue
-        nombre=input("Ingrese el nombre del empleado:")
-        departamento=input("Ingrese el departamento del empleado:")
+
+        nombre = input("Nombre del empleado: ")
+        departamento = input("Departamento del empleado: ")
+
         try:
-            antiguedad = int(input("Antiguedad: "))
+            antiguedad = int(input("Antigüedad: "))
         except ValueError:
-            print("Ingrese un numero valido")
-            return
+            print("Ingrese un número válido para la antigüedad.")
+            continue
 
+        print("\n--- Evaluación del empleado ---")
+        puntualidad = pedir_puntaje("Puntualidad (0-10): ")
+        equipo = pedir_puntaje("Trabajo en equipo (0-10): ")
+        productividad = pedir_puntaje("Productividad (0-10): ")
+        observaciones = input("Observaciones: ")
+        promedio = (puntualidad + equipo + productividad) / 3
+        estado = "Satisfactorio" if promedio >= 7 else "Mejorar"
 
+        evaluacion = {
+            "puntualidad": puntualidad,
+            "equipo": equipo,
+            "productividad": productividad,
+            "observaciones": observaciones,
+            "promedio": promedio,
+            "estado": estado
+        }
 
-def menu ():
-    print("_Control Empleados_")
-    print("1. Agregar Empleado")
-    print("2. Mostrar Empleados")
-    print("3. Salir")
+        print("\n--- Información de contacto ---")
+        while True:
+            try:
+                telefono = int(input("Ingrese el número de teléfono (8 dígitos): "))
+                if len(telefono) == 8:
+                    break
+                else:
+                    print("Ingrese un número válido de 8 dígitos.")
+            except ValueError:
+                print("Ingrese un numero de telefono valido")
+                continue
+
+        correo = input("Ingrese correo electrónico: ")
+        contacto = {
+            "telefono": telefono,
+            "correo": correo
+        }
+
+        empleados[codigo_empleado] = {
+            "nombre": nombre,
+            "departamento": departamento,
+            "antiguedad": antiguedad,
+            "evaluacion": evaluacion,
+            "contacto": contacto
+        }
+
+def mostrar_empleados(empleados):
+    if not empleados:
+        print("No hay empleados registrados.")
+        return
+
+    print("\n--- Lista de Empleados ---")
+    for codigo, datos in empleados.items():
+        print(f"\nCódigo: {codigo}")
+        print(f"Nombre: {datos['nombre']}")
+        print(f"Departamento: {datos['departamento']}")
+        print(f"Antigüedad: {datos['antiguedad']} años")
+        print("Evaluación:")
+        for clave, valor in datos["evaluacion"].items():
+            print(f"  {clave.capitalize()}: {valor}")
+        print("Contacto:")
+        print(f"  Teléfono: {datos['contacto']['telefono']}")
+        print(f"  Correo: {datos['contacto']['correo']}")
+
+def menu():
+    empleados = {}
+    while True:
+        print("\n--- Control de Empleados ---")
+        print("1. Agregar Empleado")
+        print("2. Mostrar Empleados")
+        print("3. Salir")
+
+        opcion = input("Seleccione una opción: ")
+        if opcion == "1":
+            registrar_empleados(empleados)
+        elif opcion == "2":
+            mostrar_empleados(empleados)
+        elif opcion == "3":
+            print("Saliendo del programa.")
+            break
+        else:
+            print("Opción inválida. Intente de nuevo.")
 
 menu()
+
 
 
 
