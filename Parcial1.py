@@ -48,7 +48,7 @@ def registrar_empleados(empleados):
             "estado": estado
         }
 
-        print("\n--- Información de contacto ---")
+        correo = input("Ingrese correo electrónico: ")
         while True:
             try:
                 telefono = input("Ingrese el número de teléfono (8 dígitos): ")
@@ -60,7 +60,6 @@ def registrar_empleados(empleados):
                 print("Ingrese un numero de telefono valido")
                 continue
 
-        correo = input("Ingrese correo electrónico: ")
         contacto = {
             "telefono": telefono,
             "correo": correo
@@ -78,19 +77,19 @@ def mostrar_empleados(empleados):
     if not empleados:
         print("No hay empleados registrados.")
         return
-
-    print("\n--- Lista de Empleados ---")
-    for codigo, datos in empleados.items():
-        print(f"\nCódigo: {codigo}")
-        print(f"Nombre: {datos['nombre']}")
-        print(f"Departamento: {datos['departamento']}")
-        print(f"Antigüedad: {datos['antiguedad']} años")
-        print("Evaluación:")
-        for clave, valor in datos["evaluacion"].items():
-            print(f"  {clave.capitalize()}: {valor}")
-        print("Contacto:")
-        print(f"  Teléfono: {datos['contacto']['telefono']}")
-        print(f"  Correo: {datos['contacto']['correo']}")
+    else:
+        print("\n--- Lista de Empleados ---")
+        for codigo, datos in empleados.items():
+            print(f"\nCódigo: {codigo}")
+            print(f"Nombre: {datos['nombre']}")
+            print(f"Departamento: {datos['departamento']}")
+            print(f"Antigüedad: {datos['antiguedad']} años")
+            print("Evaluación:")
+            for clave, valor in datos["evaluacion"].items():
+                print(f"  {clave.capitalize()}: {valor}")
+            print("Contacto:")
+            print(f"  Teléfono: {datos['contacto']['telefono']}")
+            print(f"  Correo: {datos['contacto']['correo']}")
 
 def menu():
     empleados = {}
